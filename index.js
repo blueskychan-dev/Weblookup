@@ -72,7 +72,7 @@ bot.command('fullpagescreenshot', ctx => {
       else{
         url = "http://" + url;
       }
-        bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰')
+        bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰');
           (async () => {
             try
             {
@@ -83,11 +83,11 @@ bot.command('fullpagescreenshot', ctx => {
             await delay(3000);
             await fullPageScreenshot(page, { path:'./images/' + ctx.from.username + '.png' });
             await browser.close();
-            ctx.replyWithPhoto({ source:'./images/' + ctx.from.username + '.png' }, {caption: "✅Screenshot success✅\nHost: " + url + "\n\nScreenshot By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
+            ctx.replyWithDocument({ source:'./images/' + ctx.from.username + '.png' }, {caption: "✅Screenshot success✅\nHost: " + url + "\n\nScreenshot By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
             }
             catch (e){
               console.error(e);
-          bot.telegram.sendMessage(ctx.chat.id,"Failed to Screenshot!\nWith error: " + e)
+          bot.telegram.sendMessage(ctx.chat.id,"Failed to Screenshot! With error: " + e)
             }
          })();
     }
@@ -101,19 +101,17 @@ bot.command('screenshot', ctx => {
   }
   else{
     if (url.startsWith("http")){
-
+      bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰');
     }
     else{
       url = "http://" + url;
+      bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰');
     }
-      bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰')
-      try
-      {
         (async () => {
-          try{
           const browser = await puppeteer.launch();
           const page = await browser.newPage();
           await page.setViewport({ width: 800, height: 600 });
+          try{
           await page.goto(url);
           await delay(3000);
           await page.screenshot({ path: './images/' + ctx.from.username + '.png' });
@@ -122,14 +120,9 @@ bot.command('screenshot', ctx => {
           }
           catch(e){
             console.error(e);
-            bot.telegram.sendMessage(ctx.chat.id,"Failed to Screenshot!\nWith error: " + e)
+            bot.telegram.sendMessage(ctx.chat.id,"Failed to Screenshot! With error: " + e)
           }
        })();
-      }
-      catch(e){
-          console.error(e);
-          bot.telegram.sendMessage(ctx.chat.id,"Failed to screenshot!\nWith error: " + e)
-      }
   }
 })
 bot.command('record', ctx => {
@@ -145,7 +138,7 @@ bot.command('record', ctx => {
     else{
       url = "http://" + url;
     }
-      bot.telegram.sendMessage(ctx.chat.id,'📸Record page process been starting...📸\n⏰This will take time to Recording....⏰')
+      bot.telegram.sendMessage(ctx.chat.id,'📸Record page process been starting...📸\n⏰This will take time to Recording....⏰');
         (async () => {
           try
           {
@@ -162,7 +155,7 @@ bot.command('record', ctx => {
           }
           catch(e){
             console.error(e);
-          bot.telegram.sendMessage(ctx.chat.id,"Failed to Recording!\nWith error: " + e)
+          bot.telegram.sendMessage(ctx.chat.id,"Failed to Recording! With error: " + e)
           }
        })();
   }
@@ -176,17 +169,10 @@ bot.command('devplan', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, "email:pass is null!")
   }
   else
-      bot.telegram.sendMessage(ctx.chat.id,'📸Hacking process been starting...📸\n⏰This will take time to Hacking....⏰')
-      process.on('uncaughtException', function (err) {
-        console.error(err);
-        console.log("Node NOT Exiting...");
-        bot.telegram.sendMessage(ctx.chat.id,"Unable to Hacking with error: " + err);
-        bot.telegram.sendPhoto(ctx.chat.id, {source: './images/' + ctx.from.username + '.png'});
-      });
-      try
-      {
+      bot.telegram.sendMessage(ctx.chat.id,'📸Hacking process been starting...📸\n⏰This will take time to Hacking....⏰');
         let url = "https://signup.azure.com/signup?offer=MS-AZR-0043P&appId=IbizaCatalogBlade";
         (async () => {
+          try{
           const browser = await puppeteer.launch();
           const page = await browser.newPage();
           const recorder = new PuppeteerScreenRecorder(page);
@@ -236,12 +222,13 @@ bot.command('devplan', ctx => {
           await recorder.stop();
           await browser.close();
           ctx.replyWithVideo({ source: './videos/' + ctx.from.username + '.mp4' }, {caption: "✅Recording success✅\nHost: " + url + "\n\nEvent By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
-       })();
       }
       catch(e){
-          console.error(e);
-          bot.telegram.sendMessage(ctx.chat.id,"Failed to screenshot!\nWith error: " + e)
-      }
+        console.error(e);
+        bot.telegram.sendMessage(ctx.chat.id,"Failed to Hacking! With error: " + e)
+        bot.telegram.sendPhoto(ctx.chat.id, {source: './images/' + ctx.from.username + '.png'});
+    }
+      })();
 })
 
 bot.command('ytvideo', ctx => {
