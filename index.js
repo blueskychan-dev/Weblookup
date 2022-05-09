@@ -73,14 +73,9 @@ bot.command('fullpagescreenshot', ctx => {
         url = "http://" + url;
       }
         bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰')
-        process.on('uncaughtException', function (err) {
-          console.error(err);
-          console.log("Node NOT Exiting...");
-          bot.telegram.sendMessage(ctx.chat.id,"Unable to screenshot with error: " + err);
-        });
-        try
-        {
           (async () => {
+            try
+            {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
             await page.setViewport({ width: 800, height: 600 });
@@ -89,12 +84,12 @@ bot.command('fullpagescreenshot', ctx => {
             await fullPageScreenshot(page, { path:'./images/' + ctx.from.username + '.png' });
             await browser.close();
             ctx.replyWithPhoto({ source:'./images/' + ctx.from.username + '.png' }, {caption: "✅Screenshot success✅\nHost: " + url + "\n\nScreenshot By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
+            }
+            catch (e){
+              console.error(e);
+          bot.telegram.sendMessage(ctx.chat.id,"Failed to Screenshot!\nWith error: " + e)
+            }
          })();
-        }
-        catch(e){
-            console.error(e);
-            bot.telegram.sendMessage(ctx.chat.id,"Failed to screenshot!\nWith error: " + e)
-        }
     }
 })
 
@@ -112,14 +107,10 @@ bot.command('screenshot', ctx => {
       url = "http://" + url;
     }
       bot.telegram.sendMessage(ctx.chat.id,'📸Screenshot process been starting...📸\n⏰This will take time to screenshot....⏰')
-      process.on('uncaughtException', function (err) {
-        console.error(err);
-        console.log("Node NOT Exiting...");
-        bot.telegram.sendMessage(ctx.chat.id,"Unable to screenshot with error: " + err);
-      });
       try
       {
         (async () => {
+          try{
           const browser = await puppeteer.launch();
           const page = await browser.newPage();
           await page.setViewport({ width: 800, height: 600 });
@@ -128,6 +119,11 @@ bot.command('screenshot', ctx => {
           await page.screenshot({ path: './images/' + ctx.from.username + '.png' });
           await browser.close();
           ctx.replyWithPhoto({ source: './images/' + ctx.from.username + '.png' }, {caption: "✅Screenshot success✅\nHost: " + url + "\n\nScreenshot By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
+          }
+          catch(e){
+            console.error(e);
+            bot.telegram.sendMessage(ctx.chat.id,"Failed to Screenshot!\nWith error: " + e)
+          }
        })();
       }
       catch(e){
@@ -150,14 +146,9 @@ bot.command('record', ctx => {
       url = "http://" + url;
     }
       bot.telegram.sendMessage(ctx.chat.id,'📸Record page process been starting...📸\n⏰This will take time to Recording....⏰')
-      process.on('uncaughtException', function (err) {
-        console.error(err);
-        console.log("Node NOT Exiting...");
-        bot.telegram.sendMessage(ctx.chat.id,"Unable to screenshot with error: " + err);
-      });
-      try
-      {
         (async () => {
+          try
+          {
           const browser = await puppeteer.launch();
           const page = await browser.newPage();
           const recorder = new PuppeteerScreenRecorder(page);
@@ -168,12 +159,12 @@ bot.command('record', ctx => {
           await recorder.stop();
           await browser.close();
           ctx.replyWithVideo({ source: './videos/' + ctx.from.username + '.mp4' }, {caption: "✅Recording success✅\nHost: " + url + "\n\nEvent By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
+          }
+          catch(e){
+            console.error(e);
+          bot.telegram.sendMessage(ctx.chat.id,"Failed to Recording!\nWith error: " + e)
+          }
        })();
-      }
-      catch(e){
-          console.error(e);
-          bot.telegram.sendMessage(ctx.chat.id,"Failed to screenshot!\nWith error: " + e)
-      }
   }
 })
 
@@ -274,6 +265,20 @@ bot.command('ytvideo', ctx => {
   }
 })
 
+process.on('uncaughtException', function (err) {
+  console.error(err);
+console.log("This is pid " + process.pid);
+setTimeout(function () {
+    process.on("exit", function () {
+        require("child_process").spawn(process.argv.shift(), process.argv, {
+            cwd: process.cwd(),
+            detached : true,
+            stdio: "inherit"
+        });
+    });
+    process.exit();
+}, 5000);
+});
 
 try{
     bot.launch();
