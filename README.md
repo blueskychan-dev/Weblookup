@@ -25,7 +25,7 @@ WARNING: MAKE SURE YOUR DONE AZURE REGISTER STEP! (Legal info, Number phone verf
 # Then How to Deployed this bot?
 * Download this repo ```git clone https://github.com/fusedevgithub/Weblookup``` (For Linux, Git shell)
 * Install nodejs runtime are npm.
-* Now cd to Weblookup ```cd Weblookup``` and ```npm i``` to install all package
+* Now cd to Weblookup ```cd Weblookup``` and ```mkdir images && mkdir videos && npm i``` to install all package
 * For telegram you need token bot please read in [here](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
 * After you got telegram api key now edit config.json like this
 ```
