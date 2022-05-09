@@ -19,6 +19,10 @@ Azure Sign up Bot (Demo)
 -/devplan email:pass - Auto register azure (Developer plan)
 
 WARNING: MAKE SURE YOUR DONE AZURE REGISTER STEP! (Legal info, Number phone verfiy, Payment Methods)
+
+Video manager
+
+-/ytvideo <URL> - Download youtube video to Telegram
 ```
 # Notice
 * If you are unworking try /start and do action again.
