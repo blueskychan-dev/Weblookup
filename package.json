@@ -9,6 +9,7 @@
     "puppeteer-screen-recorder": "^2.0.2",
     "puppeteer-video-recorder": "^1.0.5",
     "request": "^2.88.2",
-    "telegraf": "^4.8.1"
+    "telegraf": "^4.8.1",
+    "ytdl-core": "^4.11.0"
   }
 }

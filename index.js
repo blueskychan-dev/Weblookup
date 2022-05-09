@@ -2,16 +2,15 @@ const { Telegraf } = require('telegraf');
 const puppeteer = require('puppeteer');
 const { PuppeteerScreenRecorder } = require('puppeteer-screen-recorder');
 const fullPageScreenshot = require("puppeteer-full-page-screenshot").default;
-var sys = require('sys')
-var exec = require('child_process').exec;
 var request = require('request');
 var config = require('./config.json');
-const { stdout } = require('process');
+const fs = require('fs');
+const ytdl = require('ytdl-core');
 const bot = new Telegraf(config.telegram_token);
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 bot.command('start', ctx => {
     console.log(ctx.from)
-    bot.telegram.sendMessage(ctx.chat.id, 'Hello There! 🤗\nWelcome to Weblookup bot!\nYou can check status of website by using Telegram!\n\n-/start - Welcome to bot!\n-/upordown - Check this website are up or down?\n-/screenshot - Screenshot Webpage\n-/fullpagescreenshot - Screenshot Webpage with full page\n-/record - Recording Video while Webpage is loading.\n\nAzure Sign up Bot (Demo)\n\n-/devplan email:pass - Auto register azure (Developer plan)\n\nWARNING: MAKE SURE YOUR DONE AZURE REGISTER STEP! (Legal info, Number phone verfiy, Payment Methods)\n\n\nDeveloper: https://t.me/MeowKawaiiii', {
+    bot.telegram.sendMessage(ctx.chat.id, 'Hello There! 🤗\nWelcome to Weblookup bot!\nYou can check status of website by using Telegram!\n\n-/start - Welcome to bot!\n-/upordown - Check this website are up or down?\n-/screenshot - Screenshot Webpage\n-/fullpagescreenshot - Screenshot Webpage with full page\n-/record - Recording Video while Webpage is loading.\n\nAzure Sign up Bot (Demo)\n\n-/devplan email:pass - Auto register azure (Developer plan)\n\nWARNING: MAKE SURE YOUR DONE AZURE REGISTER STEP! (Legal info, Number phone verfiy, Payment Methods)\n\nVideo manager\n\n-/ytvideo <URL> - Download youtube video to Telegram\n\n\nDeveloper: https://t.me/MeowKawaiiii', {
     })
 })
 bot.command('upordown', ctx => {
@@ -252,6 +251,27 @@ bot.command('devplan', ctx => {
           console.error(e);
           bot.telegram.sendMessage(ctx.chat.id,"Failed to screenshot!\nWith error: " + e)
       }
+})
+
+bot.command('ytvideo', ctx => {
+  console.log(ctx.from)
+  let url = ctx.message.text.substring(9);
+  if (url == ""){
+    bot.telegram.sendMessage(ctx.chat.id, "ERROR: Your didn't tell a video url.")
+  }
+  else{
+    bot.telegram.sendMessage(ctx.chat.id, "This will take a time to downloading a yt video.")
+    try{
+      ytdl(url, {filter: 'audioandvideo'}).pipe(fs.createWriteStream(('./videos/' + ctx.from.username+ '.mp4')).on("finish", function() {
+        console.log("Finished!");
+        ctx.replyWithVideo({ source: './videos/' + ctx.from.username + '.mp4' }, {caption: "✅Download Youtube Video Success✅\n\n\nEvent By: @" + ctx.from.username + "\nDeveloper: @MeowKawaiiii"});
+      }));
+    }
+    catch(e){
+      console.log(e);
+      bot.telegram.sendMessage(ctx.chat.id, "ERROR: Failed while downloading yt videos.")
+    }
+  }
 })
 
 
