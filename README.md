@@ -26,6 +26,11 @@ Video manager
 ```
 # Notice
 * If you are unworking try /start and do action again.
+# Recommend before Deploy
+* Need 6 CPU Cores+
+* 16+ GB of Ram
+* Recommend Windows for less problem
+* Also if you have some money, GPU Server is good idea because some feature is need render videos.
 # Then How to Deployed this bot?
 * Download this repo ```git clone https://github.com/fusedevgithub/Weblookup``` (For Linux, Git shell)
 * Install nodejs runtime are npm.
