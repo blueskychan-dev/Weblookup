@@ -1,14 +1,17 @@
 {
   "dependencies": {
     "@discordjs/rest": "^0.4.1",
+    "axios": "^0.27.2",
     "discord-api-types": "^0.32.1",
     "discord.js": "^13.6.0",
+    "node-fetch": "^2.6.7",
     "puppeteer": "^13.7.0",
     "puppeteer-core": "^13.7.0",
     "puppeteer-full-page-screenshot": "^1.2.2",
     "puppeteer-screen-recorder": "^2.0.2",
     "puppeteer-video-recorder": "^1.0.5",
     "request": "^2.88.2",
+    "request-cloudflare": "^2.0.0",
     "telegraf": "^4.8.1",
     "ytdl-core": "^4.11.0"
   }
